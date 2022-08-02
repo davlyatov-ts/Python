@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 
-import os
+import os, sys
 
-bash_command = ["cd ~/repo/netology/python", "git status"]
+
+paramv = sys.argv[0]
+bash_command = [f'cd {paramv}', "git status"]
 result_os = os.popen(' && '.join(bash_command)).read()
 
 
 for result in result_os.split('\n'):
     if result.find('modified') != -1:
         prepare_result = result.replace('\tmodified:    ','')
-        print(f'/home/pi/repo/netology/python/{prepare_result}')
+        print(f'{paramv}/{prepare_result}')
     

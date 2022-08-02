@@ -73,4 +73,47 @@ Changes not staged for commit:
 /home/pi/repo/netology/python/  modified:   readme.md
 ➜  python git:(master) ✗ 
 ```
+_________________________________
+Доработать скрипт выше так, чтобы он мог проверять не только локальный репозиторий в текущей директории,<br>
+а также умел воспринимать путь к репозиторию, который мы передаём как входной параметр. Мы точно знаем,<br>
+что начальство коварное и будет проверять работу этого скрипта в директориях, которые не являются локальными репозиториями.<br>
 
+#Скрипт
+```
+#!/usr/bin/env python3
+  
+import os, sys
+
+
+paramv = sys.argv[1]
+bash_command = [f'cd {paramv}', "git status"]
+result_os = os.popen(' && '.join(bash_command)).read()
+
+
+for result in result_os.split('\n'):
+    if result.find('modified') != -1:
+        prepare_result = result.replace('\tmodified:    ','')
+        print(f'{paramv}/{prepare_result}')
+```
+#Вывод скрипта
+```
+~ cd repo/netology/python 
+➜  python git:(master) ✗ 
+➜  python git:(master) ✗ git status 
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   cisco.py
+        modified:   readme.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+➜  python git:(master) ✗ cd
+➜  ~ ./cisco.py repo/netology/python
+repo/netology/python/   modified:   cisco.py
+repo/netology/python/   modified:   readme.md
+➜  ~ 
+```
+_________________________________
