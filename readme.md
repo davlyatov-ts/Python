@@ -33,4 +33,44 @@ for result in result_os.split('\n'):
         print(prepare_result)
         break
 ```
+#Ответ
+```
+#!/usr/bin/env python3
+  
+import os
+
+bash_command = ["cd ~/repo/netology/python", "git status"]
+result_os = os.popen(' && '.join(bash_command)).read()
+
+
+for result in result_os.split('\n'):
+    if result.find('modified') != -1:
+        prepare_result = result.replace('\tmodified:    ','')
+        print(f'/home/pi/repo/netology/python/{prepare_result}')
+```
+#Вывод
+```
+➜  python git:(master) ✗ git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   file1
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   file1
+        modified:   file2.txt
+        modified:   file3.txt
+        modified:   readme.md
+
+➜  python git:(master) ✗ ./cisco.py
+/home/pi/repo/netology/python/  modified:   file1
+/home/pi/repo/netology/python/  modified:   file2.txt
+/home/pi/repo/netology/python/  modified:   file3.txt
+/home/pi/repo/netology/python/  modified:   readme.md
+➜  python git:(master) ✗ 
+```
 
