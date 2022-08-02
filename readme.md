@@ -3,8 +3,9 @@
 # Обязательная задача 1
 
 ``
-#!/usr/bin/env python3
-a = 1
-b = '2'
-c = a + b
+#!/usr/bin/env python3<br>
+a = 1<br>
+b = '2'<br>
+c = a + b<br>
 ``
+
